@@ -1,0 +1,23 @@
+{
+  "name": "chatbotbasico",
+  "version": "1.0.0",
+  "description": "Crear un chatBot basico con diferentes funcionalidades y se comunique via telegram",
+  "keywords": [
+    "ENDYs"
+  ],
+  "homepage": "https://github.com/NicoENDYs/ChatbotBasico#readme",
+  "bugs": {
+    "url": "https://github.com/NicoENDYs/ChatbotBasico/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicoENDYs/ChatbotBasico.git"
+  },
+  "license": "ISC",
+  "author": "Nicolas Guarin",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
