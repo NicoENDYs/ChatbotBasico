@@ -21,17 +21,21 @@
 # Iniciar proyecto
 
 1. instalar dependencias
-
+```bash
 npm i
-
-2. configurar variables de entorno
-
+```
+2.crear archivo .env
+```bash
 cp .env.example .env
-
-3. crear archivo .env con las siguientes variables
-
+```
+3. configurar variables de entorno
+```javascript
 TELEGRAM_BOT_TOKEN=tu_token_de_telegram
 OPENROUTER_API_KEY=tu_api_key_de_openrouter
+```
+
+
+
 
 ## Calidad de Código (Linter & Formatter)
 
