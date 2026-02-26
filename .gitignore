@@ -1,0 +1,12 @@
+# Variables de entorno
+.env
+
+# Node modules
+node_modules
+
+# Logs
+logs
+
+# Build artifacts
+dist
+build
