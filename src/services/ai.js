@@ -4,13 +4,19 @@
 const config = require('../config/env');
 const logger = require('../utils/logger');
 
-const generateResponse = async (prompt) => {
+const generateResponse = async (prompt, history = []) => {
     if (!config.OPENROUTER_API_KEY) {
         logger.warn('Falta OPENROUTER_API_KEY. Retornando respuesta por defecto.');
         return "Lo siento, la inteligencia artificial no está configurada aún.";
     }
 
     try {
+        const messages = [
+            { "role": "system", "content": "Eres un asistente básico y amigable en Telegram." },
+            ...history,
+            { "role": "user", "content": prompt }
+        ];
+
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
@@ -19,10 +25,7 @@ const generateResponse = async (prompt) => {
             },
             body: JSON.stringify({
                 "model": config.AI_MODEL,
-                "messages": [
-                    { "role": "system", "content": "Eres un asistente básico y amigable en Telegram." },
-                    { "role": "user", "content": prompt }
-                ]
+                "messages": messages
             })
         });
 

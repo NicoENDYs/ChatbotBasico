@@ -1,5 +1,6 @@
 const logger = require('../../utils/logger');
 const aiService = require('../../services/ai');
+const { saveMessage, getRecentHistory } = require('../../database/sqlite');
 
 module.exports = (bot) => {
     bot.on('text', async (ctx) => {
@@ -12,10 +13,19 @@ module.exports = (bot) => {
             // Evitar que Telegram lance timeout si la IA tarda: Mostrar 'escribiendo...'
             await ctx.sendChatAction('typing');
 
-            // Llamar a la IA (OpenRouter)
-            const aiResponse = await aiService.generateResponse(userMessage);
+            // 1. Guardar mensaje del usuario
+            await saveMessage(userId, 'user', userMessage);
 
-            // Enviar la respuesta de vuelta al usuario en Telegram
+            // 2. Obtener historial reciente
+            const history = await getRecentHistory(userId, 5); // Últimos 5 mensajes
+
+            // 3. Llamar a la IA (OpenRouter) pasando el historial
+            const aiResponse = await aiService.generateResponse(userMessage, history);
+
+            // 4. Guardar respuesta de la IA
+            await saveMessage(userId, 'assistant', aiResponse);
+
+            // 5. Enviar la respuesta de vuelta al usuario en Telegram
             await ctx.reply(aiResponse);
 
             logger.info({ userId }, 'Respuesta de IA enviada con éxito');
