@@ -1,5 +1,5 @@
 const logger = require('../../utils/logger');
-// const aiService = require('../../services/ai'); // Lo usaremos después
+const aiService = require('../../services/ai');
 
 module.exports = (bot) => {
     bot.on('text', async (ctx) => {
@@ -7,12 +7,19 @@ module.exports = (bot) => {
             const userMessage = ctx.message.text;
             const userId = ctx.from.id;
 
-            logger.info({ userId, message: userMessage }, 'Mensaje de texto recibido');
+            logger.info({ userId, message: userMessage }, 'Mensaje recibido, enviando a IA...');
 
-            // Por ahora solo haremos un eco del mensaje para probar
-            await ctx.reply(`Recibí tu mensaje: "${userMessage}"`);
+            // Evitar que Telegram lance timeout si la IA tarda: Mostrar 'escribiendo...'
+            await ctx.sendChatAction('typing');
 
-            // TODO: Integrar aquí la llamada al servicio de IA (DeepSeek/OpenRouter)
+            // Llamar a la IA (OpenRouter)
+            const aiResponse = await aiService.generateResponse(userMessage);
+
+            // Enviar la respuesta de vuelta al usuario en Telegram
+            await ctx.reply(aiResponse);
+
+            logger.info({ userId }, 'Respuesta de IA enviada con éxito');
+
         } catch (error) {
             logger.error({ err: error }, 'Error procesando mensaje de texto');
             await ctx.reply('Ups, tuve un problema procesando tu mensaje.');
