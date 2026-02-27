@@ -32,6 +32,7 @@ cp .env.example .env
 ```javascript
 TELEGRAM_BOT_TOKEN=tu_token_de_telegram
 OPENROUTER_API_KEY=tu_api_key_de_openrouter
+AI_MODEL=deepseek/deepseek-chat
 ```
 
 
