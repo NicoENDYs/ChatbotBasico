@@ -19,8 +19,8 @@ module.exports = (bot) => {
             // Mensaje de bienvenida
             await ctx.reply(
                 `¡Hola, ${user.first_name || 'amigo'}! 👋\n\n` +
-                `Soy tu bot básico. Estoy aquí para ayudarte.\n` +
-                `Envíame cualquier mensaje y te responderé.`
+                    `Soy tu bot básico. Estoy aquí para ayudarte.\n` +
+                    `Envíame cualquier mensaje y te responderé.`
             );
         } catch (error) {
             logger.error({ err: error }, 'Error en el comando /start');

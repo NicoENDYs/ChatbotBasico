@@ -29,7 +29,6 @@ module.exports = (bot) => {
             await ctx.reply(aiResponse);
 
             logger.info({ userId }, 'Respuesta de IA enviada con éxito');
-
         } catch (error) {
             logger.error({ err: error }, 'Error procesando mensaje de texto');
             await ctx.reply('Ups, tuve un problema procesando tu mensaje.');

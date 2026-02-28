@@ -7,26 +7,26 @@ const logger = require('../utils/logger');
 const generateResponse = async (prompt, history = []) => {
     if (!config.OPENROUTER_API_KEY) {
         logger.warn('Falta OPENROUTER_API_KEY. Retornando respuesta por defecto.');
-        return "Lo siento, la inteligencia artificial no está configurada aún.";
+        return 'Lo siento, la inteligencia artificial no está configurada aún.';
     }
 
     try {
         const messages = [
-            { "role": "system", "content": "Eres un asistente básico y amigable en Telegram." },
+            { role: 'system', content: 'Eres un asistente básico y amigable en Telegram.' },
             ...history,
-            { "role": "user", "content": prompt }
+            { role: 'user', content: prompt },
         ];
 
-        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-            method: "POST",
+        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
             headers: {
-                "Authorization": `Bearer ${config.OPENROUTER_API_KEY}`,
-                "Content-Type": "application/json"
+                Authorization: `Bearer ${config.OPENROUTER_API_KEY}`,
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "model": config.AI_MODEL,
-                "messages": messages
-            })
+                model: config.AI_MODEL,
+                messages: messages,
+            }),
         });
 
         if (!response.ok) {
@@ -38,8 +38,7 @@ const generateResponse = async (prompt, history = []) => {
         // Retornar solo el contenido del mensaje
         return data.choices && data.choices[0] && data.choices[0].message.content
             ? data.choices[0].message.content
-            : "No pude generar una respuesta.";
-
+            : 'No pude generar una respuesta.';
     } catch (error) {
         logger.error({ err: error, prompt }, 'Error llamando a la IA');
         return "Hubo un problema de conexión con mi 'cerebro'. Por favor intenta más tarde.";
@@ -47,5 +46,5 @@ const generateResponse = async (prompt, history = []) => {
 };
 
 module.exports = {
-    generateResponse
+    generateResponse,
 };

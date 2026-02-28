@@ -12,10 +12,14 @@ const bot = new Telegraf(config.TELEGRAM_BOT_TOKEN);
 
 // Configuración de comandos y manejadores
 const setupStartCommand = require('./bot/commands/start');
+const setupMenuCommand = require('./bot/commands/menu');
 const setupMessageHandlers = require('./bot/handlers/message');
+const setupActionHandlers = require('./bot/handlers/action');
 
 setupStartCommand(bot);
+setupMenuCommand(bot);
 setupMessageHandlers(bot);
+setupActionHandlers(bot);
 
 // Iniciar servidor web y bot
 const start = async () => {
@@ -31,7 +35,6 @@ const start = async () => {
         // Iniciar el bot en modo polling
         bot.launch();
         logger.info('Bot de Telegram iniciado');
-
     } catch (err) {
         logger.error({ err }, 'Error iniciando la aplicación');
         process.exit(1);

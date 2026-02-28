@@ -1,12 +1,6 @@
 require('dotenv').config();
 
-const {
-    TELEGRAM_BOT_TOKEN,
-    OPENROUTER_API_KEY,
-    AI_MODEL,
-    PORT,
-    LOG_LEVEL,
-} = process.env;
+const { TELEGRAM_BOT_TOKEN, OPENROUTER_API_KEY, AI_MODEL, PORT, LOG_LEVEL } = process.env;
 
 // Validar variables de token y key
 if (!TELEGRAM_BOT_TOKEN) {
@@ -21,7 +15,7 @@ if (!OPENROUTER_API_KEY) {
 module.exports = {
     TELEGRAM_BOT_TOKEN,
     OPENROUTER_API_KEY,
-    AI_MODEL: AI_MODEL || "deepseek/deepseek-chat", // Default a un modelo conocido si no se provee
+    AI_MODEL: AI_MODEL || 'deepseek/deepseek-chat', // Default a un modelo conocido si no se provee
     PORT: PORT || 3000,
     LOG_LEVEL: LOG_LEVEL || 'info',
 };
